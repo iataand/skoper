@@ -3,8 +3,10 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"log"
+
+	"github.com/iataand/skoper/internal/utils"
+	_ "github.com/lib/pq"
 )
 
 func createTables(db *sql.DB) error {
@@ -49,11 +51,7 @@ func createTables(db *sql.DB) error {
 }
 
 func InitDbConnection() (*sql.DB, error) {
-	host := "localhost"
-	port := 5432
-	user := "user"
-	password := "pass"
-	dbname := "testdb"
+	host, port, user, password, dbname := utils.LoadDbEnvVariables()
 
 	psqlInfo := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",

@@ -14,7 +14,6 @@ func InsertProgram(db *sql.DB, handle string) (string, error) {
         INSERT INTO programs (handle)
         VALUES ($1)
         RETURNING id
-        ON CONFLICT (handle) DO NOTHING;
     `
 
 	var id string

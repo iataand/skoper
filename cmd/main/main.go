@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/iataand/skoper/internal/db"
@@ -27,8 +26,6 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to insert handle into Programs: %v", err)
 		}
-
-		fmt.Println(id)
 
 		scopes, err := hackerone.FetchStructuredScopes(user, apiKey, handle)
 		if err != nil {
