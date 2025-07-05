@@ -29,14 +29,14 @@ func LoadDbEnvVariables() (string, int, string, string, string) {
 		log.Fatal("Error loading .env file")
 	}
 
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USER")
-	password := os.Getenv("DB_PASSWORD")
-	dbname := os.Getenv("DB_NAME")
+	host := os.Getenv("POSTGRES_HOST")
+	port := os.Getenv("POSTGRES_PORT")
+	user := os.Getenv("POSTGRES_USER")
+	password := os.Getenv("POSTGRES_PASSWORD")
+	dbname := os.Getenv("POSTGRES_DB")
 
 	if host == "" || port == "" || user == "" || password == "" || dbname == "" {
-		log.Fatal("Missing one or more required DB environment variables (DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)")
+		log.Fatal("Missing one or more required POSTGRESS environment variables (DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)")
 	}
 
 	var portInt int

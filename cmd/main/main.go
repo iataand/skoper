@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	handles := utils.ReadTargetsFromStdin()
+	inputHandles := utils.ReadTargetsFromStdin()
 	user, apiKey := utils.LoadEnvVariables()
 
 	database, err := db.InitDbConnection()
@@ -20,14 +20,14 @@ func main() {
 
 	defer database.Close()
 
-	for _, handle := range handles {
+	for _, handleData := range inputHandles {
 		var id string
-		id, err = db.InsertProgram(database, handle)
+		id, err = db.InsertProgram(database, handleData)
 		if err != nil {
 			log.Fatalf("Failed to insert handle into Programs: %v", err)
 		}
 
-		scopes, err := hackerone.FetchStructuredScopes(user, apiKey, handle)
+		scopes, err := hackerone.FetchStructuredScopes(user, apiKey, handleData.HandleApiURL)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -50,5 +50,4 @@ func main() {
 			}
 		}
 	}
-
 }

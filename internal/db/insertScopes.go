@@ -7,17 +7,19 @@ import (
 	"time"
 
 	"github.com/iataand/skoper/internal/hackerone"
+	"github.com/iataand/skoper/internal/utils"
 )
 
-func InsertProgram(db *sql.DB, handle string) (string, error) {
+func InsertProgram(db *sql.DB, handleData utils.Target) (string, error) {
 	query := `
-        INSERT INTO programs (handle)
-        VALUES ($1)
-        RETURNING id
+        INSERT INTO programs (handle, handleApiUrl)
+        VALUES ($1, $2)
+        ON CONFLICT (handle) DO NOTHING
+        RETURNING id;
     `
 
 	var id string
-	err := db.QueryRow(query, handle).Scan(&id)
+	err := db.QueryRow(query, handleData.Handle, handleData.HandleApiURL).Scan(&id)
 	if err != nil {
 		return "", fmt.Errorf("failed to insert program: %w", err)
 	}
@@ -37,7 +39,6 @@ func InsertScope(db *sql.DB, scope hackerone.Scope, programID string) error {
 		log.Printf("Warning: failed to parse updated_at for scope %s: %v", scope.ID, err)
 		updatedAt = time.Time{}
 	}
-	fmt.Println(scope.ID)
 
 	_, err = db.Exec(`
         INSERT INTO scopes (

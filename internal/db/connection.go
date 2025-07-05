@@ -18,7 +18,8 @@ func createTables(db *sql.DB) error {
 	programsTable := `
 	CREATE TABLE IF NOT EXISTS programs (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-		handle TEXT NOT NULL
+		handle TEXT NOT NULL UNIQUE,
+		handleApiUrl TEXT NOT NULL 
 	);`
 
 	scopesTable := `
