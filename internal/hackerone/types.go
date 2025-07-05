@@ -1,11 +1,22 @@
-package main
+package hackerone
 
 type ScopeResponse struct {
 	Data  []Data `json:"data"`
 	Links Links  `json:"links"`
 }
 
+type Scope struct {
+	ID         string     `json:"id"`
+	Attributes Attributes `json:"attributes"`
+}
+
+type Program struct {
+	ID     string `json:"id"`
+	Handle string `json:"handle"`
+}
+
 type Attributes struct {
+	ID                         string `json:"id"`
 	AssetType                  string `json:"asset_type"`
 	AssetIdentifier            string `json:"asset_identifier"`
 	EligibleForBounty          bool   `json:"eligible_for_bounty"`
