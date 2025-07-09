@@ -7,10 +7,9 @@ import (
 	"time"
 
 	"github.com/iataand/skoper/internal/hackerone"
-	"github.com/iataand/skoper/internal/utils"
 )
 
-func InsertProgram(db *sql.DB, handleData utils.Target) (string, error) {
+func InsertProgram(db *sql.DB, handleData hackerone.Program) (string, error) {
 	query := `
         INSERT INTO programs (handle, handleApiUrl)
         VALUES ($1, $2)
@@ -19,7 +18,7 @@ func InsertProgram(db *sql.DB, handleData utils.Target) (string, error) {
     `
 
 	var id string
-	err := db.QueryRow(query, handleData.Handle, handleData.HandleApiURL).Scan(&id)
+	err := db.QueryRow(query, handleData.Handle, handleData.HandleApiUrl).Scan(&id)
 	if err != nil {
 		return "", fmt.Errorf("failed to insert program: %w", err)
 	}

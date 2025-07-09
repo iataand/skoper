@@ -27,7 +27,7 @@ func main() {
 			log.Fatalf("Failed to insert handle into Programs: %v", err)
 		}
 
-		scopes, err := hackerone.FetchStructuredScopes(user, apiKey, handleData.HandleApiURL)
+		scopes, err := hackerone.FetchStructuredScopes(user, apiKey, handleData.HandleApiUrl)
 		if err != nil {
 			log.Fatal(err)
 		}

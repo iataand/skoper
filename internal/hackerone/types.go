@@ -11,8 +11,9 @@ type Scope struct {
 }
 
 type Program struct {
-	ID     string `json:"id"`
-	Handle string `json:"handle"`
+	ID           string `json:"id"`
+	Handle       string `json:"handle"`
+	HandleApiUrl string
 }
 
 type Attributes struct {
