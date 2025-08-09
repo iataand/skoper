@@ -13,7 +13,7 @@ func InsertProgram(db *sql.DB, handleData hackerone.Program) (string, error) {
 	query := `
         INSERT INTO programs (handle, handleApiUrl)
         VALUES ($1, $2)
-        ON CONFLICT (handle) DO NOTHING
+        ON CONFLICT (handle) DO UPDATE SET handle=EXCLUDED.handle 
         RETURNING id;
     `
 
